@@ -28,6 +28,7 @@ async function run() {
         const itemCollection = client.db("cookydb").collection("items");
         const orderCollection = client.db("cookydb").collection("order");
         const reviewCollection = client.db("cookydb").collection("review");
+        const userCollection = client.db("cookydb").collection("user");
 
         app.get("/items", async (req, res) => {
             const query = {};
@@ -44,6 +45,8 @@ async function run() {
             const result = await cursor.toArray();
             res.send(result);
         });
+
+       
 
         app.get("/order", async (req, res) => {
             const query = {};
@@ -70,6 +73,12 @@ async function run() {
         app.post("/order", async (req, res) => {
             const newItem = req.body;
             const result = await orderCollection.insertOne(newItem);
+            res.send(result);
+        });
+
+        app.post("/user", async (req, res) => {
+            const newItem = req.body;
+            const result = await userCollection.insertOne(newItem);
             res.send(result);
         });
 
