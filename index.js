@@ -36,6 +36,13 @@ async function run() {
             res.send(result);
         });
 
+        app.get("/review", async (req, res) => {
+            const query = {};
+            const cursor = await reviewCollection.find(query);
+            const result = await cursor.toArray();
+            res.send(result);
+        });
+
 
         app.get("/item/:id", async (req, res) => {
             const id = req.params.id;
