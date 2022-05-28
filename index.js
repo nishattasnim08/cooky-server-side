@@ -27,6 +27,7 @@ async function run() {
         await client.connect();
         const itemCollection = client.db("cookydb").collection("items");
         const orderCollection = client.db("cookydb").collection("order");
+        const reviewCollection = client.db("cookydb").collection("review");
 
         app.get("/items", async (req, res) => {
             const query = {};
@@ -46,6 +47,12 @@ async function run() {
         app.post("/order", async (req, res) => {
             const newItem = req.body;
             const result = await orderCollection.insertOne(newItem);
+            res.send(result);
+        });
+
+        app.post("/review", async (req, res) => {
+            const newItem = req.body;
+            const result = await reviewCollection.insertOne(newItem);
             res.send(result);
         });
 
