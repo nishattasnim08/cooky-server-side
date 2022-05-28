@@ -47,10 +47,27 @@ async function run() {
             const newItem = req.body;
             const result = await orderCollection.insertOne(newItem);
             res.send(result);
-          });
+        });
 
-          
-      
+        app.put("/item/:id", async (req, res) => {
+            const id = req.params.id;
+            const quantity = req.body.quantity;
+
+            const filter = { _id: ObjectId(id) };
+            const options = { upsert: true };
+            const updateItem = {
+                $set: {
+                    quantity,
+                },
+            };
+            const result = await itemCollection.updateOne(
+                filter,
+                updateItem,
+                options
+            );
+            res.send(result);
+        });
+
 
     } finally {
         // await client.close();
